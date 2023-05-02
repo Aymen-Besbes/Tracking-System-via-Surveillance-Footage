@@ -1,274 +1,246 @@
 import 'package:flutter/material.dart' ;
 import 'package:google_fonts/google_fonts.dart' ;
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'super_user_screen.dart';
 import 'delayed_animation.dart';
-import 'package:pcd_version_finale/main.dart';
-import 'package:email_validator/email_validator.dart';
 
-class SignUpForm extends StatefulWidget {
-  const SignUpForm({Key? key}) : super(key: key);
 
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
   @override
-  _SignUpFormState createState() => _SignUpFormState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
-
-class _SignUpFormState extends State<SignUpForm> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController _passwordController = TextEditingController();
-  bool _isLocalOwner = false;
-  String _username = '';
-  String _email = '';
-  String _phoneNumber = '';
-  String _password = '';
-  String _confirmPassword = '';
-  int _nbCameras = 0;
-  String _address = '';
-  String _locationOption = '';
-  bool _currentLocation= false;
+class _SignUpScreenState extends State<SignUpScreen> {
+  var _obscureText = true;
+  bool _isType1Selected = false;
+  bool _isType2Selected = false;
 
   @override
-
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 30),
-
-      child: Form(
-        key: _formKey,
-        child : SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child : Card(
-
-            child: Column(
-              children:[
-                _buildUserType(),
-                SizedBox(height: 30),
-                _buildUsername(),
-                SizedBox(height: 30),
-                _buildEmail(),
-                SizedBox(height: 30),
-                _buildPhoneNumber(),
-                SizedBox(height: 30),
-                _buildPassword(),
-                SizedBox(height: 30),
-                _buildConfirmPassword(),
-                SizedBox(height: 30),
-                if (_isLocalOwner) ...[
-                  _buildNbCameras(),
-                  SizedBox(height: 30),
-                  _buildAddress(),
-                  SizedBox(height: 30),
-                  _buildLocationOption(),
-                  SizedBox(height: 30),
-                ],
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: StadiumBorder(),
-                    primary: Colors.red,
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 125,
-                      vertical: 13,
-                    ),
-                  ),
-                  child: Text(
-                    'SIGN UP',
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // handle sign up
-                    }
-                  },
-                ),
-              ],
-            ),
-
+  Widget build (BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor:  Colors.red,
+        title: Text('SIGN UP',
+          style: GoogleFonts.poppins(
+            color:Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
           ),
         ),
+        actions: [
+          //   Icon(Icons.favorite),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Icon(Icons.search),
+          ),
+          Icon(Icons.more_vert),
+        ],
+        centerTitle: true,
       ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Nom
+            SizedBox(height: 5) ,
+            DelayedAnimation(delay: 3500, child: TextField(
 
-    );
-  }
 
-  Widget _buildUserType() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Radio(
-          value: false,
-          groupValue: _isLocalOwner,
-          onChanged: (value) {
-            setState(() {
-              _isLocalOwner = value!;
-            });
-          },
-        ),
-        Text('Super User'),
-        Radio(
-          value: true,
-          groupValue: _isLocalOwner,
-          onChanged: (value) {
-            setState(() {
-              _isLocalOwner = value!;
-            });
-          },
-        ),
-        Text('Local Owner'),
-      ],
-    );
-  }
 
-  Widget _buildUsername() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Username',
-        labelStyle: TextStyle(
-          color: Colors.grey[400],
-        ),
-      ),
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Mot de passe est obligatoire.';
-        }
-        return null;
-      },
-      onSaved: (value) {
-        _username = value!;
-      },
-    );
-  }
+              decoration: InputDecoration(
+                labelText: 'Name',
 
-  Widget _buildEmail() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Email',
-        labelStyle: TextStyle(
-          color: Colors.grey[400],
+                suffixIcon: Icon(Icons.person , color: Colors.black),
+
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            ),
+            SizedBox(height: 15) ,
+            DelayedAnimation(delay: 3500, child: TextField(
+
+
+              decoration: InputDecoration(
+                labelText: 'Address mail',
+
+                suffixIcon: Icon(Icons.email , color: Colors.black),
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            ),
+
+            // Adresse email
+
+
+            // Mot de passe
+            SizedBox(height: 15) ,
+            DelayedAnimation(delay: 3500, child: TextField(
+
+              obscureText: _obscureText,
+
+              decoration: InputDecoration(
+                labelText: 'Password',
+                suffixIcon: IconButton(
+                  color: Colors.black,
+
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+
+                    });
+                  },
+                  icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility),
+                ),
+
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            ),
+            SizedBox(height: 15) ,
+            DelayedAnimation(delay: 3500, child: TextField(
+
+              obscureText: _obscureText,
+
+              decoration: InputDecoration(
+                labelText: 'Confirm password',
+                suffixIcon: IconButton(
+
+                  color: Colors.black,
+
+                  onPressed: () {
+                    setState(() {
+                      _obscureText = !_obscureText;
+
+                    });
+                  },
+                  icon: Icon(
+                      _obscureText ? Icons.visibility_off : Icons.visibility),
+                ),
+                labelStyle: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            ),
+            SizedBox(height: 15),
+            DelayedAnimation( delay: 3500, child:
+            CheckboxListTile(
+
+              title: Text('Super User'),
+
+              value: _isType2Selected,
+
+              onChanged: (bool? value) {
+                setState(() {
+
+                  _isType2Selected = value ?? false;
+                  _isType1Selected = ! (_isType2Selected);
+
+                });
+
+              },
+              activeColor: Colors.black,
+            ),
+            ),
+
+            SizedBox(height: 15),
+            // Checkbox pour le type d'utilisateur 1
+            DelayedAnimation(delay: 3500, child: CheckboxListTile(
+              title: Text('Normal User'
+              ),
+              value: _isType1Selected,
+              onChanged: (bool? value){
+                setState(() {
+                  _isType1Selected = value ?? false;
+                  _isType2Selected = !(_isType1Selected);
+                });
+              },
+              activeColor: Colors.black,
+            ),
+            ),
+            // Champs pour le type d'utilisateur 1
+            if (_isType1Selected)
+              Column(
+                children: [
+                  TextField(
+
+
+                    decoration: InputDecoration(
+
+                      labelText: 'Enter your location ',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                  TextField(
+
+                    decoration: InputDecoration(
+                      labelText: 'Enter the numbre of cameras ',
+                      labelStyle: TextStyle(
+                        color: Colors.grey[600],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+            // Checkbox pour le type d'utilisateur 2
+
+
+
+            // Champs pour le type d'utilisateur 2
+            if (_isType2Selected)
+
+              Column(
+                children: [
+                  // champs spécifiques pour le type d'utilisateur 2
+                ],
+              ),
+
+            // Bouton pour valider le formulaire
+            SizedBox(height :30),
+            DelayedAnimation(delay: 5500, child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: StadiumBorder(),
+                  primary:Colors.red,
+                  padding: EdgeInsets.symmetric(
+                    horizontal:125,
+                    vertical: 13,
+                  ),
+                ),
+                child: Text(
+                  'CONFIRM',
+                  style: GoogleFonts.poppins(
+                    color:Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                onPressed: () {
+                  //if (_isType1Selected) {
+                  //  Navigator.push(context, MaterialPageRoute(builder: (Context) =>   )
+                  //  );
+                  // }
+                  if (_isType2Selected) {
+                    Navigator.push(context, MaterialPageRoute (builder: (Context) =>PickImage()  )
+                    );
+                  }
+                }
+
+            ),
+            ),
+          ],
         ),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter your email';
-        }
-        if (!EmailValidator.validate(value)) {
-          return 'Please enter a valid email';
-        }
-        return null;
-      },
-      onSaved: (value) {
-        _email = value!;
-      },
-    );
-  }
-  Widget _buildPhoneNumber() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Phone Number',
-        prefixIcon: Icon(Icons.phone),
-      ),
-      keyboardType: TextInputType.phone,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Please enter your phone number';
-        }
-        return null;
-      },
-      onSaved: (value) {
-        _phoneNumber = value!;
-      },
-    );
-  }
-  Widget _buildPassword() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: 'Password',
-        border: OutlineInputBorder(),
-      ),
-      validator: (String? value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter a password';
-        }
-        if (value.length < 8) {
-          return 'Password must be at least 8 characters';
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        _password = value!;
-      },
-    );
-  }
-  Widget _buildConfirmPassword() {
-    return TextFormField(
-      obscureText: true,
-      decoration: InputDecoration(
-        labelText: 'Confirm Password',
-        border: OutlineInputBorder(),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter confirm password';
-        }
-        if (value != _passwordController.text) {
-          return 'Passwords do not match';
-        }
-        return null;
-      },
-    );
-  }
-  Widget _buildAddress() {
-    return TextFormField(
-      decoration: InputDecoration(labelText: 'Adresse'),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Adresse est obligatoire.';
-        }
-        return null;
-      },
-      onChanged: (value) {
-        setState(() {
-          _address = value;
-        });
-      },
-    );
-  }
-  Widget _buildLocationOption() {
-    return Row(
-      children: <Widget>[
-        Checkbox(
-          value: _currentLocation,
-          onChanged: (value) {
-            setState(() {
-              _currentLocation = value!;
-            });
-          },
-        ),
-        Text('Utiliser la localisation actuelle'),
-      ],
-    );
-  }
-  Widget _buildNbCameras() {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: 'Nombre de caméras',
-        hintText: 'Entrez le nombre de caméras',
-        prefixIcon: Icon(Icons.videocam),
-        border: OutlineInputBorder(),
-      ),
-      keyboardType: TextInputType.number,
-      validator: (String? value) {
-        if (value!.isEmpty) {
-          return 'Nombre de caméras requis';
-        }
-        return null;
-      },
-      onSaved: (String? value) {
-        _nbCameras = int.parse(value!);
-      },
     );
   }
 
