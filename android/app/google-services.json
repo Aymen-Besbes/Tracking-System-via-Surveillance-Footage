@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "537612565774",
+    "project_id": "pcdfirebase-6ae53",
+    "storage_bucket": "pcdfirebase-6ae53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:537612565774:android:c62fa252a9cc4f0e8f6b5f",
+        "android_client_info": {
+          "package_name": "com.example.pcd_version_finale"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "537612565774-4bc498de1jqdq28gcd6ectf3luejgadu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVfHv2s2_7CgqAzgEJQ3iibSpAi6Q5e-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "537612565774-4bc498de1jqdq28gcd6ectf3luejgadu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

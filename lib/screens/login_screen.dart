@@ -74,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                   vertical: 13,
                 ),
               ),
+              key: _formkey,
               child: Text(
                 'LOG IN',
                 style: GoogleFonts.poppins(
@@ -87,10 +88,10 @@ class _LoginPageState extends State<LoginPage> {
                   visible = true;
                 });
                 signIn(emailController.text, passwordController.text);
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (Context) => MyApp(),
+                    builder: (Context) => SignUpScreen(),
                   ),
                 );
               },
