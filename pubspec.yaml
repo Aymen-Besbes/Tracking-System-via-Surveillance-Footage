@@ -45,7 +45,10 @@ dependencies:
   firebase_auth: ^4.4.2
   cloud_firestore: ^4.5.3
   email_validator: ^2.0.1
-
+  video_player: ^2.6.1
+  firebase_storage: ^11.1.1
+  multiple_images_picker: ^1.0.1
+  file_picker: ^5.2.11
 dev_dependencies:
   flutter_test:
     sdk: flutter

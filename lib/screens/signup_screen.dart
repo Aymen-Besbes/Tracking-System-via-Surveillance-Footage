@@ -20,7 +20,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool visible = false;
   var _obscureText = true;
   bool _isType1Selected = false;
-  bool _isType2Selected = false;
+  bool _isType2Selected = true;
 
   //ajoutés
   File? file;
@@ -28,7 +28,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     'Super User',
     'Normal User',
   ];
-  var rool="Super User";
+  var rool="";
   final _formkey= GlobalKey<FormState>();
   final _auth=FirebaseAuth.instance;
   final TextEditingController passwordController= new TextEditingController();
@@ -196,8 +196,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 setState(() {
                   _isType2Selected = value ?? false;
                   _isType1Selected = ! (_isType2Selected);
-                  if(_isType2Selected){rool="Super User";};
-                });
+                  if(_isType2Selected)
+                   {rool="Super User";}
+
+                }
+                );
 
               },
               activeColor: Colors.black,
@@ -218,8 +221,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 setState(() {
                   _isType1Selected = value ?? false;
                   _isType2Selected = !(_isType1Selected);
-                  if (_isType1Selected)
-                    {rool = "Normal User";} ;
+                  if(_isType1Selected)
+                  {rool="Normal User";}
+
                 });
               },
               activeColor: Colors.black,
@@ -227,36 +231,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             // Champs pour le type d'utilisateur 1
             if (_isType1Selected)
-              Column(
-                children: [
-                  TextField(
+
+          Column(
+          children: [
+          TextField(
 
 
-                    decoration: InputDecoration(
+          decoration: InputDecoration(
 
-                      labelText: 'Enter your location ',
-                      labelStyle: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                  TextField(
+          labelText: 'Enter your location ',
+          labelStyle: TextStyle(
+          color: Colors.grey[600],
+          ),
+          ),
+          ),
+          TextField(
 
-                    decoration: InputDecoration(
-                      labelText: 'Enter the number of cameras ',
-                      labelStyle: TextStyle(
-                        color: Colors.grey[600],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+          decoration: InputDecoration(
+          labelText: 'Enter the number of cameras ',
+          labelStyle: TextStyle(
+          color: Colors.grey[600],
+          ),
+          ),
+          ),
+          ],
+          ),
 
-            // Checkbox pour le type d'utilisateur 2
+          // Checkbox pour le type d'utilisateur 2
 
 
-
-            // Champs pour le type d'utilisateur 2
+          // Champs pour le type d'utilisateur 2
 
 
             // Bouton pour valider le formulaire
@@ -300,7 +304,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       await _auth
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) => {postDetailsToFirestore(email, rool)})
-          .catchError((e) {});
+          .catchError((e) { print ("erreur1");});
     }
   }
 
