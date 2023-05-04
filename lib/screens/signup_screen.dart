@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' ;
 import 'package:google_fonts/google_fonts.dart' ;
@@ -10,19 +11,24 @@ import 'delayed_animation.dart';
 
 
 class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 class _SignUpScreenState extends State<SignUpScreen> {
   _SignUpScreenState();
   bool showProgress = false;
+  bool visible = false;
   var _obscureText = true;
   bool _isType1Selected = false;
   bool _isType2Selected = false;
 
   //ajoutés
-  var rool="";
+  File? file;
+  var options= [
+    'Super User',
+    'Normal User',
+  ];
+  var rool="Super User";
   final _formkey= GlobalKey<FormState>();
   final _auth=FirebaseAuth.instance;
   final TextEditingController passwordController= new TextEditingController();
@@ -53,7 +59,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+
         padding: EdgeInsets.all(16.0),
+        child: Form(
+        key:_formkey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -101,7 +110,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             ),
 
-            // Adresse email
 
 
             // Mot de passe
@@ -188,7 +196,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 setState(() {
                   _isType2Selected = value ?? false;
                   _isType1Selected = ! (_isType2Selected);
-                if(_isType2Selected){rool="Super User";};
+                  if(_isType2Selected){rool="Super User";};
                 });
 
               },
@@ -235,7 +243,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   TextField(
 
                     decoration: InputDecoration(
-                      labelText: 'Enter the numbre of cameras ',
+                      labelText: 'Enter the number of cameras ',
                       labelStyle: TextStyle(
                         color: Colors.grey[600],
                       ),
@@ -249,13 +257,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
             // Champs pour le type d'utilisateur 2
-            if (_isType2Selected)
 
-              Column(
-                children: [
-                  // champs spécifiques pour le type d'utilisateur 2
-                ],
-              ),
 
             // Bouton pour valider le formulaire
             SizedBox(height :30),
@@ -268,6 +270,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     vertical: 13,
                   ),
                 ),
+                 onPressed: () {
+                      setState(() {
+                        showProgress = true;
+                       });
+                      signUp(emailController.text,passwordController.text , rool);
+                        },
                 child: Text(
                   'CONFIRM',
                   style: GoogleFonts.poppins(
@@ -276,31 +284,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                onPressed: () {
-                  setState(() {
-                    showProgress = true;
-                  });
-                  signUp(emailController.text,passwordController.text , rool);
-                  //if (_isType1Selected) {
-                  //  Navigator.push(context, MaterialPageRoute(builder: (Context) =>   )
-                  //  );
-                  // }
-                  if (rool=="Super User") {
-                    Navigator.push(context, MaterialPageRoute (builder: (Context) =>PickImage()  )
-                    );
-                  }
-                  else
-                    if (rool=="Normal User"){
-                    Navigator.push(context, MaterialPageRoute (builder: (Context) =>NormalUser()  )
-                    );
-                    };
-                }
+
 
             ),
             ),
           ],
         ),
       ),
+    )
     );
   }
   void signUp(String email, String password, String rool) async {
