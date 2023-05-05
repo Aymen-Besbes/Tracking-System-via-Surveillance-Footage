@@ -234,12 +234,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           Column(
           children: [
-          TextField(
+          TextFormField(
 
 
           decoration: InputDecoration(
+            labelText: 'Enter your location ',
+          suffixIcon: IconButton(
+            icon: Icon(Icons.location_on), onPressed: () {  },
 
-          labelText: 'Enter your location ',
+          ),
           labelStyle: TextStyle(
           color: Colors.grey[600],
           ),
@@ -249,6 +252,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           decoration: InputDecoration(
           labelText: 'Enter the number of cameras ',
+            suffixIcon: Icon(Icons.camera , color: Colors.black),
           labelStyle: TextStyle(
           color: Colors.grey[600],
           ),
@@ -307,6 +311,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           .catchError((e) { print ("erreur1");});
     }
   }
+
 
   postDetailsToFirestore(String email, String rool) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
