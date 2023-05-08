@@ -49,6 +49,9 @@ dependencies:
   firebase_storage: ^11.1.1
   multiple_images_picker: ^1.0.1
   file_picker: ^5.2.11
+  dio: ^5.1.1
+  dotted_border: ^2.0.0+3
+  iconsax: ^0.0.8
 
 
 dev_dependencies:

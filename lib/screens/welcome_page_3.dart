@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pcd_version_finale/screens/login_screen.dart';
 import 'package:pcd_version_finale/screens/normal_user_screen.dart';
+import 'package:pcd_version_finale/screens/super_user_screen.dart';
 import 'signup_screen.dart';
 import 'package:pcd_version_finale/widgets/rectangle_button.dart';
 import '../utils/utils.dart';
@@ -37,7 +38,7 @@ class Home3 extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>NormalUser()),
+                    MaterialPageRoute(builder: (context) =>PickImage()),
                   );
                 },
                 child: const Text(
