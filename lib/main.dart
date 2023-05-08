@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:pcd_version_finale/screens/welcome_page.dart';
 import 'package:pcd_version_finale/screens/delayed_animation.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pcd_version_finale/screens/welcome_page_1.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // title: 'check up',
       debugShowCheckedModeBanner: false, // enlever le banner au coin
-      home:WelcomePageLoadingScreen(),
+      home:Home(),
     );
   }
 }

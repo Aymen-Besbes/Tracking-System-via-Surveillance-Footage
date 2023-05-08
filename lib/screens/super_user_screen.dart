@@ -47,8 +47,10 @@ class _PickImageState extends State<PickImage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Super User Interface'),
+         backgroundColor: Colors.white
       ),
       body: Center(
+
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -79,6 +81,7 @@ class _PickImageState extends State<PickImage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
+
                   onPressed: () => _getImage(ImageSource.camera),
                   child: Row(
                     children: [

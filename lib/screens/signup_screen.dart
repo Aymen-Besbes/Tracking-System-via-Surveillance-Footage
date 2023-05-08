@@ -1,10 +1,8 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' ;
-import 'package:google_fonts/google_fonts.dart' ;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pcd_version_finale/screens/normal_user_screen.dart';
-import 'super_user_screen.dart';
+import 'package:pcd_version_finale/utils/utils.dart';
 import'login_screen.dart';
 import 'delayed_animation.dart';
 
@@ -38,32 +36,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build (BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+
+        title: Text("Sign Up",style: TextStyle(fontSize: 30),),
         elevation: 0,
-        backgroundColor:  Colors.red,
-        title: Text('SIGN UP',
-          style: GoogleFonts.poppins(
-            color:Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
+        backgroundColor:  Colors.deepPurple,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.white,
+            size: 30,
           ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
         actions: [
           //   Icon(Icons.favorite),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Icon(Icons.search),
-          ),
-          Icon(Icons.more_vert),
+          //Padding(
+            //padding: EdgeInsets.symmetric(horizontal: 16),
+            //child: Icon(Icons.search),
+          //),
+          //Icon(Icons.more_vert),
         ],
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+
+      body:
+
+        SingleChildScrollView(
+
 
         padding: EdgeInsets.all(16.0),
         child: Form(
-        key:_formkey,
+          key:_formkey,
         child: Column(
+
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Nom
@@ -75,10 +84,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
               decoration: InputDecoration(
                 labelText: 'Name',
 
-                suffixIcon: Icon(Icons.person , color: Colors.black),
+                suffixIcon: Icon(Icons.person , color: Colors.black54),
 
                 labelStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
               ),
             ),
@@ -88,9 +97,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               controller: emailController,
               decoration: InputDecoration(
                 labelText: 'Address mail',
-                suffixIcon: Icon(Icons.email , color: Colors.black),
+                suffixIcon: Icon(Icons.email , color: Colors.black54),
                 labelStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
               ),
               validator: (value){
@@ -121,7 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               decoration: InputDecoration(
                 labelText: 'Password',
                 suffixIcon: IconButton(
-                  color: Colors.black,
+                  color: Colors.black54,
 
                   onPressed: () {
                     setState(() {
@@ -134,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
 
                 labelStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
               ),
               validator: (value) {
@@ -160,7 +169,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 labelText: 'Confirm password',
                 suffixIcon: IconButton(
 
-                  color: Colors.black,
+                  color: Colors.black54,
 
                   onPressed: () {
                     setState(() {
@@ -172,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       _obscureText ? Icons.visibility_off : Icons.visibility),
                 ),
                 labelStyle: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
               ),
               validator: (value) {
@@ -187,53 +196,56 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             ),
             SizedBox(height: 15),
-            DelayedAnimation( delay: 3500, child:
-            CheckboxListTile(
-
-              title: Text('Super User'),
-              value: _isType2Selected,
-              onChanged: (bool? value) {
-                setState(() {
-                  _isType2Selected = value ?? false;
-                  _isType1Selected = ! (_isType2Selected);
-                  if(_isType2Selected)
-                   {rool="Super User";}
-
-                }
-                );
-
-              },
-              activeColor: Colors.black,
-
-
+            Row(
+              children: [
+                Expanded(
+                  child: DelayedAnimation(
+                    delay: 3500,
+                    child: CheckboxListTile(
+                      title: Text('Super User'),
+                      value: _isType2Selected,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isType2Selected = value ?? false;
+                          _isType1Selected = !(_isType2Selected);
+                          if (_isType2Selected) {
+                            rool = "Super User";
+                          }
+                        });
+                      },
+                      activeColor: Colors.black54,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: DelayedAnimation(
+                    delay: 3500,
+                    child: CheckboxListTile(
+                      title: Text('Normal User'),
+                      value: _isType1Selected,
+                      onChanged: (bool? value) {
+                        setState(() {
+                          _isType1Selected = value ?? false;
+                          _isType2Selected = !(_isType1Selected);
+                          if (_isType1Selected) {
+                            rool = "Normal User";
+                          }
+                        });
+                      },
+                      activeColor: Colors.black54,
+                    ),
+                  ),
+                ),
+              ],
             ),
 
-            ),
-
-
-            SizedBox(height: 15),
-            // Checkbox pour le type d'utilisateur 1
-            DelayedAnimation(delay: 3500, child: CheckboxListTile(
-              title: Text('Normal User'
-              ),
-              value: _isType1Selected,
-              onChanged: (bool? value){
-                setState(() {
-                  _isType1Selected = value ?? false;
-                  _isType2Selected = !(_isType1Selected);
-                  if(_isType1Selected)
-                  {rool="Normal User";}
-
-                });
-              },
-              activeColor: Colors.black,
-            ),
-            ),
             // Champs pour le type d'utilisateur 1
             if (_isType1Selected)
 
           Column(
           children: [
+            SizedBox(height: 10),
           TextFormField(
 
 
@@ -244,17 +256,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
           ),
           labelStyle: TextStyle(
-          color: Colors.grey[600],
+          color: Colors.black54,
           ),
           ),
           ),
+          SizedBox(height: 15),
           TextField(
 
           decoration: InputDecoration(
           labelText: 'Enter the number of cameras ',
-            suffixIcon: Icon(Icons.camera , color: Colors.black),
+            suffixIcon: Icon(Icons.camera , color: Colors.black54),
           labelStyle: TextStyle(
-          color: Colors.grey[600],
+          color: Colors.black54,
           ),
           ),
           ),
@@ -268,11 +281,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 
             // Bouton pour valider le formulaire
-            SizedBox(height :30),
+            SizedBox(height :40),
             DelayedAnimation(delay: 5500, child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: StadiumBorder(),
-                  primary:Colors.red,
+                  primary:Colors.deepPurple,
                   padding: EdgeInsets.symmetric(
                     horizontal:125,
                     vertical: 13,
@@ -285,12 +298,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       signUp(emailController.text,passwordController.text , rool);
                         },
                 child: Text(
-                  'CONFIRM',
-                  style: GoogleFonts.poppins(
-                    color:Colors.white,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                  'Confirm',
+                  style: kButtonTextStyle
                 ),
 
 
