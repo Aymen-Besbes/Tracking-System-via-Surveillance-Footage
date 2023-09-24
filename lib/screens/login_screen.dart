@@ -29,35 +29,41 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white.withOpacity(0),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back,
-            color: Colors.black,
-            size: 30,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      /* appBar: AppBar(
+         elevation: 0,
+         backgroundColor: Colors.white.withOpacity(0),
+         leading: IconButton(
+           icon: Icon(
+             Icons.arrow_back,
+             color: Colors.black,
+             size: 30,
+           ),
+           onPressed: () {
+             Navigator.pop(context);
+           },
+         ),
+       ),*/
 
       body: SingleChildScrollView(
         child: Form(
           key: _formkey,
           child: Column
-            (mainAxisAlignment: MainAxisAlignment.center,
+            (mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-
+              /*IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),*/
               DelayedAnimation(
                 delay: 2500,
-                child: Transform.translate(
-                  offset: Offset(0, -60),
-                  // Déplace l'image de 10 pixels vers le haut
                   child: Image.asset("images/login1.png"),
-                ),
+                //),
               ),
 
               Container(
@@ -68,7 +74,6 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   children: [
                     DelayedAnimation(delay: 3500,
-                     child: Transform.translate(offset: Offset(0, -80),
                         child: TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
@@ -96,11 +101,11 @@ class _LoginPageState extends State<LoginPage> {
                           },
                           keyboardType: TextInputType.emailAddress,
                         ),
-                     ),
+                     //),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 20),
+
                     DelayedAnimation(delay: 4500,
-                      child: Transform.translate(offset: Offset(0, -80),
                         child: TextFormField(
                           controller: passwordController,
                           obscureText: _obscureText,
@@ -138,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                           keyboardType: TextInputType.emailAddress,
                         ),
 
-                      ),
+                     // ),
                     ),
                   ],
                 ),
@@ -146,7 +151,7 @@ class _LoginPageState extends State<LoginPage> {
               ,
               SizedBox(height: 40),
               DelayedAnimation(delay: 5500,
-              child: Transform.translate(offset: Offset(0, -70),
+
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
@@ -169,10 +174,11 @@ class _LoginPageState extends State<LoginPage> {
                       //Navigator.pushReplacement(context,MaterialPageRoute(builder: (Context) => SignUpScreen(),),);
                     },
                  ),
-                ),
+                //),
+
               ),
+             SizedBox(height: 20),
               DelayedAnimation(delay: 6500,
-                child: Transform.translate(offset: Offset(0, -45),
                   child:
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +203,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     )
-                ),
+                //),
               )
 
             ],

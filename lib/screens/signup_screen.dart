@@ -6,13 +6,15 @@ import 'package:pcd_version_finale/utils/utils.dart';
 import'login_screen.dart';
 import 'delayed_animation.dart';
 
-
-
 class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 class _SignUpScreenState extends State<SignUpScreen> {
+
+ //Greetings
+
+
   _SignUpScreenState();
   bool showProgress = false;
   bool visible = false;
@@ -32,7 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController passwordController= new TextEditingController();
   final TextEditingController confirmpasswordcontroller=new TextEditingController();
   final TextEditingController emailController = new TextEditingController();
-
+  final TextEditingController LocationController=new TextEditingController();
   @override
   Widget build (BuildContext context) {
     return Scaffold(
@@ -247,12 +249,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             SizedBox(height: 10),
           TextFormField(
-
-
-          decoration: InputDecoration(
+            controller: LocationController,
+            decoration: InputDecoration(
             labelText: 'Enter your location ',
-          suffixIcon: IconButton(
-            icon: Icon(Icons.location_on), onPressed: () {  },
+            suffixIcon: IconButton(
+               icon: Icon(Icons.location_on), onPressed: () {  },
 
           ),
           labelStyle: TextStyle(
@@ -321,13 +322,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }
   }
 
-
   postDetailsToFirestore(String email, String rool) async {
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
     var user = _auth.currentUser;
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
-    ref.doc(user!.uid).set({'email': emailController.text, 'rool': rool});
+    if (rool == 'Normal User') {
+      ref.doc(user!.uid).set({
+        'email': emailController.text,
+        'rool': rool,
+        'location': LocationController.text, // Add location field
+      });
+    }
+    else if (rool=='Super User')
+    {
+
+      ref.doc(user!.uid).set({'email':emailController.text,'rool': rool});
+
+    }
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginPage()));
+        context , MaterialPageRoute(builder: (context) => LoginPage()));
   }
 }

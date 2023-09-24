@@ -38,7 +38,7 @@ class Home3 extends StatelessWidget {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>PickImage()),
+                    MaterialPageRoute(builder: (context) =>LoginPage()),
                   );
                 },
                 child: const Text(
