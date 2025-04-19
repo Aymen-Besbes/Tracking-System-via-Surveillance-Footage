@@ -1,4 +1,4 @@
-# 📱 Face Detection & Tracking System via Surveillance Footage
+# 📱 Tracking System via Surveillance Footage
 
 ---
 
